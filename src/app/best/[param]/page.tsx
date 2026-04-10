@@ -8,6 +8,7 @@ import {
   getStartingPrice,
 } from "@/lib/tools";
 import { AffiliateDisclosure } from "@/components/AffiliateDisclosure";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
 
 type Props = {
   params: Promise<{ param: string }>;
@@ -46,6 +47,8 @@ export default async function BestForPage({ params }: Props) {
   const roleLabel = formatSlug(role);
   const hasAffiliateLinks = tools.some((t) => Boolean(t.affiliateUrl));
 
+  const topPick = tools[0];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -60,11 +63,45 @@ export default async function BestForPage({ params }: Props) {
     })),
   };
 
+  const faqEntries = [
+    {
+      q: `What is the best ${categoryLabel.toLowerCase()} tool for ${roleLabel.toLowerCase()}s?`,
+      a: topPick
+        ? `Our top pick is ${topPick.name} (${topPick.rating}/5). ${topPick.description} It stands out for ${topPick.pros[0]?.toLowerCase() || "its overall quality"}.`
+        : `We reviewed ${tools.length} tools in this category. See our ranked list above for the latest recommendations.`,
+    },
+    {
+      q: `How much do ${categoryLabel.toLowerCase()} tools cost?`,
+      a: `Pricing varies widely. ${tools.filter((t) => t.pricing.free).length} of the ${tools.length} tools we reviewed offer free tiers. Paid plans typically start at $${Math.min(...tools.map((t) => typeof t.pricing.starter === "number" ? t.pricing.starter : 999).filter((p) => p < 999))}/month.`,
+    },
+    {
+      q: `How many ${categoryLabel.toLowerCase()} tools did you review for ${roleLabel.toLowerCase()}s?`,
+      a: `We reviewed and ranked ${tools.length} ${categoryLabel.toLowerCase()} tools specifically for ${roleLabel.toLowerCase()}s, evaluating features, pricing, ease of use, and real-world fit.`,
+    },
+  ];
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqEntries.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       {/* Breadcrumb */}
@@ -90,6 +127,18 @@ export default async function BestForPage({ params }: Props) {
         {tools.length} tools reviewed and ranked for {roleLabel}s. Updated April
         2026.
       </p>
+
+      {topPick && (
+        <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
+          <p className="text-sm font-semibold text-blue-700">Top pick</p>
+          <p className="mt-1 text-base text-gray-900">
+            <Link href={`/tools/${topPick.slug}`} className="font-bold hover:text-blue-600 transition-colors">
+              {topPick.name}
+            </Link>{" "}
+            ({topPick.rating}/5, from {getStartingPrice(topPick.pricing)}) - {topPick.pros[0]?.toLowerCase() || topPick.description.toLowerCase()}.
+          </p>
+        </div>
+      )}
 
       {hasAffiliateLinks && <AffiliateDisclosure />}
 
@@ -256,6 +305,23 @@ export default async function BestForPage({ params }: Props) {
             ))}
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="mt-14">
+        <h2 className="text-xl font-semibold text-gray-900">
+          Frequently Asked Questions
+        </h2>
+        <div className="mt-6 space-y-6">
+          {faqEntries.map((faq) => (
+            <div key={faq.q}>
+              <h3 className="text-base font-semibold text-gray-900">{faq.q}</h3>
+              <p className="mt-2 text-sm text-gray-600">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <NewsletterCTA />
     </div>
   );
 }

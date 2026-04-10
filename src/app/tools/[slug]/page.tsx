@@ -8,6 +8,8 @@ import {
   getStartingPrice,
 } from "@/lib/tools";
 import { AffiliateDisclosure } from "@/components/AffiliateDisclosure";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
+import { RelatedContent } from "@/components/RelatedContent";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -60,11 +62,51 @@ export default async function ToolPage({ params }: Props) {
     },
   };
 
+  const faqEntries = [
+    {
+      q: `Is ${tool.name} free?`,
+      a: tool.pricing.free
+        ? `Yes, ${tool.name} offers a free tier. Paid plans start at ${getStartingPrice(tool.pricing)}.`
+        : `No, ${tool.name} does not have a free tier. Plans start at ${getStartingPrice(tool.pricing)}.`,
+    },
+    {
+      q: `What are ${tool.name}'s key features?`,
+      a: `${tool.name}'s key features include ${tool.features.slice(0, 4).join(", ")}${tool.features.length > 4 ? `, and ${tool.features.length - 4} more` : ""}.`,
+    },
+    {
+      q: `What are the best alternatives to ${tool.name}?`,
+      a: alternatives.length > 0
+        ? `The top alternatives to ${tool.name} are ${alternatives.filter(Boolean).map((a) => a!.name).join(", ")}.`
+        : `There are no direct alternatives listed for ${tool.name} at this time.`,
+    },
+    {
+      q: `Who is ${tool.name} best for?`,
+      a: `${tool.name} is best suited for ${tool.bestFor.map((r) => formatSlug(r) + "s").join(", ")}.`,
+    },
+  ];
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqEntries.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       {/* Breadcrumb */}
@@ -88,6 +130,11 @@ export default async function ToolPage({ params }: Props) {
             {tool.name}
           </h1>
           <p className="mt-3 text-lg text-gray-600">{tool.description}</p>
+          <p className="mt-3 text-base text-gray-700">
+            {tool.name} scores {tool.rating}/5 in our review{tool.pricing.free ? " and offers a free tier" : `, with plans starting at ${getStartingPrice(tool.pricing)}`}.{" "}
+            It is best suited for {tool.bestFor.map((r) => formatSlug(r) + "s").join(" and ")} who need {tool.features.slice(0, 2).join(" and ").toLowerCase()}.{" "}
+            {tool.pros[0] ? `A standout strength: ${tool.pros[0].toLowerCase()}.` : ""}
+          </p>
           <div className="mt-3 flex items-center gap-4">
             <div className="flex items-center gap-1">
               <span className="text-sm font-semibold text-gray-900">
@@ -291,6 +338,28 @@ export default async function ToolPage({ params }: Props) {
           </div>
         </section>
       )}
+
+      {/* FAQ Section */}
+      <section className="mt-14">
+        <h2 className="text-xl font-semibold text-gray-900">
+          Frequently Asked Questions
+        </h2>
+        <div className="mt-6 space-y-6">
+          {faqEntries.map((faq) => (
+            <div key={faq.q}>
+              <h3 className="text-base font-semibold text-gray-900">{faq.q}</h3>
+              <p className="mt-2 text-sm text-gray-600">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <RelatedContent
+        category={tool.category}
+        roles={tool.bestFor}
+      />
+
+      <NewsletterCTA />
     </div>
   );
 }

@@ -8,6 +8,8 @@ import {
   getStartingPrice,
 } from "@/lib/tools";
 import { AffiliateDisclosure } from "@/components/AffiliateDisclosure";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
+import { RelatedContent } from "@/components/RelatedContent";
 
 type Props = {
   params: Promise<{ pair: string }>;
@@ -52,11 +54,62 @@ export default async function ComparePage({ params }: Props) {
     description: `Side-by-side comparison of ${toolA.name} and ${toolB.name}`,
   };
 
+  const pricingWinner =
+    toolA.pricing.starter !== null && toolB.pricing.starter !== null
+      ? toolA.pricing.starter < toolB.pricing.starter
+        ? toolA
+        : toolB.pricing.starter < toolA.pricing.starter
+        ? toolB
+        : null
+      : null;
+
+  const featureCountA = toolA.features.length;
+  const featureCountB = toolB.features.length;
+  const featureWinner = featureCountA > featureCountB ? toolA : featureCountB > featureCountA ? toolB : null;
+
+  const faqEntries = [
+    {
+      q: `Which is better, ${toolA.name} or ${toolB.name}?`,
+      a: toolA.rating > toolB.rating
+        ? `${toolA.name} scores higher in our review (${toolA.rating}/5 vs ${toolB.rating}/5). However, ${toolB.name} may be a better fit depending on your specific needs and budget.`
+        : toolB.rating > toolA.rating
+        ? `${toolB.name} scores higher in our review (${toolB.rating}/5 vs ${toolA.rating}/5). However, ${toolA.name} may be a better fit depending on your specific needs and budget.`
+        : `Both tools score ${toolA.rating}/5 in our review. The best choice depends on your specific use case, budget, and team size.`,
+    },
+    {
+      q: `Is ${toolA.name} cheaper than ${toolB.name}?`,
+      a: pricingWinner
+        ? `Yes, ${pricingWinner.name} is cheaper at the Starter tier (${getStartingPrice(pricingWinner.pricing)}).`
+        : `Pricing varies by plan. ${toolA.name} starts at ${getStartingPrice(toolA.pricing)} and ${toolB.name} starts at ${getStartingPrice(toolB.pricing)}.`,
+    },
+    {
+      q: `What is the difference between ${toolA.name} and ${toolB.name}?`,
+      a: `${toolA.name} focuses on ${toolA.features.slice(0, 2).join(" and ").toLowerCase()}, while ${toolB.name} emphasizes ${toolB.features.slice(0, 2).join(" and ").toLowerCase()}. ${toolA.name} is best for ${toolA.bestFor.map((r) => formatSlug(r) + "s").join(", ")}, while ${toolB.name} suits ${toolB.bestFor.map((r) => formatSlug(r) + "s").join(", ")}.`,
+    },
+  ];
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqEntries.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
+  };
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
       {/* Breadcrumb */}
@@ -78,6 +131,14 @@ export default async function ComparePage({ params }: Props) {
       <p className="mt-3 text-lg text-gray-600">
         Full side-by-side comparison of features, pricing, and use cases to help
         you pick the right tool.
+      </p>
+      <p className="mt-3 text-base text-gray-700">
+        <strong>Bottom line:</strong>{" "}
+        {pricingWinner && featureWinner && pricingWinner.slug !== featureWinner.slug
+          ? `${pricingWinner.name} wins on price (from ${getStartingPrice(pricingWinner.pricing)}), while ${featureWinner.name} offers more features (${featureWinner.features.length} vs ${pricingWinner.features.length}).`
+          : pricingWinner
+          ? `${pricingWinner.name} is both cheaper and ${pricingWinner.rating >= (pricingWinner === toolA ? toolB : toolA).rating ? "higher-rated" : "competitive"} - a strong pick for most teams.`
+          : `Both tools are competitively priced. ${toolA.rating >= toolB.rating ? toolA.name : toolB.name} edges ahead with a ${Math.max(toolA.rating, toolB.rating)}/5 rating.`}
       </p>
 
       {hasAffiliateLinks && <AffiliateDisclosure />}
@@ -348,6 +409,28 @@ export default async function ComparePage({ params }: Props) {
             ))}
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="mt-14">
+        <h2 className="text-xl font-semibold text-gray-900">
+          Frequently Asked Questions
+        </h2>
+        <div className="mt-6 space-y-6">
+          {faqEntries.map((faq) => (
+            <div key={faq.q}>
+              <h3 className="text-base font-semibold text-gray-900">{faq.q}</h3>
+              <p className="mt-2 text-sm text-gray-600">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <RelatedContent
+        category={toolA.category}
+        roles={[...new Set([...toolA.bestFor, ...toolB.bestFor])]}
+      />
+
+      <NewsletterCTA />
     </div>
   );
 }
