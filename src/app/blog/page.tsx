@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/content";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -53,6 +54,10 @@ export default function BlogIndex() {
             </Link>
           </article>
         ))}
+      </div>
+
+      <div className="mt-12">
+        <NewsletterCTA />
       </div>
     </div>
   );

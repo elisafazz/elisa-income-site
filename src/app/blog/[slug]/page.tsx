@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/content";
 import { AffiliateDisclosure } from "@/components/AffiliateDisclosure";
-import { NewsletterSignup } from "@/components/NewsletterSignup";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
+import { remark } from "remark";
+import html from "remark-html";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -30,12 +32,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+async function renderMarkdown(content: string): Promise<string> {
+  const result = await remark().use(html, { sanitize: false }).process(content);
+  return result.toString();
+}
+
 export default async function BlogPost({ params }: Props) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
   const hasAffiliateLinks = post.affiliatePrograms.length > 0;
+  const contentHtml = await renderMarkdown(post.content);
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
@@ -57,49 +65,12 @@ export default async function BlogPost({ params }: Props) {
       {hasAffiliateLinks && <AffiliateDisclosure />}
 
       <div className="prose prose-dark mt-8 max-w-none prose-headings:font-semibold prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
-        {/* Content will be rendered here once MDX or markdown rendering is added */}
-        <div dangerouslySetInnerHTML={{ __html: markdownToHtml(post.content) }} />
+        <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
       </div>
 
       <div className="mt-12 border-t border-border pt-8">
-        <NewsletterSignup />
+        <NewsletterCTA />
       </div>
     </article>
   );
-}
-
-function markdownToHtml(markdown: string): string {
-  // Simple markdown to HTML conversion for headings, paragraphs, bold, links, lists
-  return markdown
-    .split("\n\n")
-    .map((block) => {
-      const trimmed = block.trim();
-      if (!trimmed) return "";
-      if (trimmed.startsWith("### "))
-        return `<h3>${processInline(trimmed.slice(4))}</h3>`;
-      if (trimmed.startsWith("## "))
-        return `<h2>${processInline(trimmed.slice(3))}</h2>`;
-      if (trimmed.startsWith("# "))
-        return `<h1>${processInline(trimmed.slice(2))}</h1>`;
-      if (trimmed.startsWith("- ")) {
-        const items = trimmed
-          .split("\n")
-          .filter((l) => l.startsWith("- "))
-          .map((l) => `<li>${processInline(l.slice(2))}</li>`)
-          .join("");
-        return `<ul>${items}</ul>`;
-      }
-      return `<p>${processInline(trimmed)}</p>`;
-    })
-    .join("\n");
-}
-
-function processInline(text: string): string {
-  return text
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*(.*?)\*/g, "<em>$1</em>")
-    .replace(
-      /\[([^\]]+)\]\(([^)]+)\)/g,
-      '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-    );
 }

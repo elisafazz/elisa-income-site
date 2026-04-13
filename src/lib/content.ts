@@ -101,6 +101,24 @@ export function getPostBySlug(slug: string): BlogPost | null {
   };
 }
 
+export function getProductBySlug(slug: string): Product | null {
+  const filePath = path.join(PRODUCTS_DIR, `${slug}.md`);
+  if (!fs.existsSync(filePath)) return null;
+
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const { metadata } = parseFrontmatter(raw);
+  return {
+    slug,
+    name: (metadata.name as string) || "",
+    description: (metadata.description as string) || "",
+    price: (metadata.price as string) || "",
+    platforms: (metadata.platforms as string[]) || [],
+    type: (metadata.type as string) || "",
+    features: (metadata.features as string[]) || [],
+    buyUrl: (metadata.buyUrl as string) || "#",
+  };
+}
+
 export function getAllProducts(): Product[] {
   if (!fs.existsSync(PRODUCTS_DIR)) return [];
 

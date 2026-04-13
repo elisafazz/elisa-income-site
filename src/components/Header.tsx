@@ -9,7 +9,7 @@ const navItems = [
   { label: "Blog", href: "/blog" },
   { label: "Tools", href: "/tools" },
   { label: "Products", href: "/products" },
-  { label: "About", href: "/about" },
+  { label: "Free Prompts", href: "/free-prompts" },
 ];
 
 function NavPill({

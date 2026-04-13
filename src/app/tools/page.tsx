@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllTools, getAllCategories, formatSlug, getStartingPrice } from "@/lib/tools";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
 
 export const metadata: Metadata = {
   title: "AI and SaaS Tool Directory",
@@ -132,6 +133,10 @@ export default function ToolsIndexPage() {
           )}
         </div>
       </section>
+
+      <div className="mt-16">
+        <NewsletterCTA />
+      </div>
     </div>
   );
 }

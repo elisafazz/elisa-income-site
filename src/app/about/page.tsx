@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
 
 export const metadata: Metadata = {
   title: "About",
@@ -51,6 +52,10 @@ export default function AboutPage() {
           <li>- Paid reviews disguised as editorial content</li>
           <li>- Exaggerated claims about any tool</li>
         </ul>
+      </div>
+
+      <div className="mt-12">
+        <NewsletterCTA />
       </div>
     </div>
   );

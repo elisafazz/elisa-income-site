@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import fs from "fs";
+import path from "path";
+import { remark } from "remark";
+import html from "remark-html";
 import {
   parseCompareParam,
   formatSlug,
@@ -9,6 +13,22 @@ import {
 import { AffiliateDisclosure } from "@/components/AffiliateDisclosure";
 import { NewsletterCTA } from "@/components/NewsletterCTA";
 import { RelatedContent } from "@/components/RelatedContent";
+
+async function loadVerdict(slugA: string, slugB: string): Promise<string | null> {
+  const verdictsDir = path.join(process.cwd(), "src", "data", "verdicts");
+  const candidates = [
+    path.join(verdictsDir, `${slugA}-vs-${slugB}.md`),
+    path.join(verdictsDir, `${slugB}-vs-${slugA}.md`),
+  ];
+  for (const filePath of candidates) {
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, "utf-8");
+      const result = await remark().use(html, { sanitize: false }).process(raw);
+      return result.toString();
+    }
+  }
+  return null;
+}
 
 type Props = {
   params: Promise<{ pair: string }>;
@@ -40,6 +60,7 @@ export default async function ComparePage({ params }: Props) {
   const result = parseCompareParam(pair);
   if (!result) notFound();
   const [toolA, toolB] = result;
+  const verdictHtml = await loadVerdict(toolA.slug, toolB.slug);
 
   const hasAffiliateLinks = Boolean(toolA.affiliateUrl || toolB.affiliateUrl);
 
@@ -268,6 +289,17 @@ export default async function ComparePage({ params }: Props) {
           </p>
         )}
       </section>
+
+      {/* Our Verdict (loaded from markdown if available) */}
+      {verdictHtml && (
+        <section className="mt-14 border-l-4 border-accent bg-surface/50 rounded-r-lg p-6">
+          <h2 className="text-xl font-semibold text-foreground">Our Verdict</h2>
+          <div
+            className="mt-4 prose prose-invert prose-sm max-w-none text-secondary prose-headings:text-foreground prose-a:text-accent prose-strong:text-foreground"
+            dangerouslySetInnerHTML={{ __html: verdictHtml }}
+          />
+        </section>
+      )}
 
       {/* Feature matrix */}
       <section className="mt-14">
