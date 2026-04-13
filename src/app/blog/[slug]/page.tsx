@@ -40,14 +40,14 @@ export default async function BlogPost({ params }: Props) {
   return (
     <article className="mx-auto max-w-3xl px-6 py-16">
       <header>
-        <span className="text-xs font-medium uppercase tracking-wide text-blue-600">
+        <span className="text-xs font-medium uppercase tracking-wide text-accent">
           {post.category}
         </span>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           {post.title}
         </h1>
-        <p className="mt-3 text-lg text-gray-600">{post.description}</p>
-        <div className="mt-4 flex items-center gap-3 text-sm text-gray-500">
+        <p className="mt-3 text-lg text-secondary">{post.description}</p>
+        <div className="mt-4 flex items-center gap-3 text-sm text-secondary">
           <span>{post.author}</span>
           <span>-</span>
           <time>{post.date}</time>
@@ -56,12 +56,12 @@ export default async function BlogPost({ params }: Props) {
 
       {hasAffiliateLinks && <AffiliateDisclosure />}
 
-      <div className="prose prose-gray mt-8 max-w-none prose-headings:font-semibold prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
+      <div className="prose prose-dark mt-8 max-w-none prose-headings:font-semibold prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
         {/* Content will be rendered here once MDX or markdown rendering is added */}
         <div dangerouslySetInnerHTML={{ __html: markdownToHtml(post.content) }} />
       </div>
 
-      <div className="mt-12 border-t border-gray-200 pt-8">
+      <div className="mt-12 border-t border-border pt-8">
         <NewsletterSignup />
       </div>
     </article>

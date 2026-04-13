@@ -112,26 +112,26 @@ export default async function ComparePage({ params }: Props) {
       />
 
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <Link href="/tools" className="hover:text-gray-900">
+      <nav className="mb-6 flex items-center gap-2 text-sm text-secondary">
+        <Link href="/tools" className="hover:text-foreground">
           Tools
         </Link>
         <span>/</span>
         <span>Compare</span>
         <span>/</span>
-        <span className="text-gray-900">
+        <span className="text-foreground">
           {toolA.name} vs {toolB.name}
         </span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+      <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
         {toolA.name} vs {toolB.name}
       </h1>
-      <p className="mt-3 text-lg text-gray-600">
+      <p className="mt-3 text-lg text-secondary">
         Full side-by-side comparison of features, pricing, and use cases to help
         you pick the right tool.
       </p>
-      <p className="mt-3 text-base text-gray-700">
+      <p className="mt-3 text-base text-secondary">
         <strong>Bottom line:</strong>{" "}
         {pricingWinner && featureWinner && pricingWinner.slug !== featureWinner.slug
           ? `${pricingWinner.name} wins on price (from ${getStartingPrice(pricingWinner.pricing)}), while ${featureWinner.name} offers more features (${featureWinner.features.length} vs ${pricingWinner.features.length}).`
@@ -147,20 +147,20 @@ export default async function ComparePage({ params }: Props) {
         {[toolA, toolB].map((tool) => (
           <div
             key={tool.slug}
-            className="rounded-lg border border-gray-200 p-6"
+            className="rounded-lg border border-border p-6"
           >
             <Link
               href={`/tools/${tool.slug}`}
-              className="text-lg font-bold text-gray-900 hover:text-blue-600 transition-colors"
+              className="text-lg font-bold text-foreground hover:text-accent transition-colors"
             >
               {tool.name}
             </Link>
-            <p className="mt-1 text-sm text-gray-500">{tool.description}</p>
+            <p className="mt-1 text-sm text-secondary">{tool.description}</p>
             <div className="mt-3 flex items-center gap-4">
-              <span className="text-sm font-semibold text-gray-700">
+              <span className="text-sm font-semibold text-secondary">
                 {tool.rating} / 5
               </span>
-              <span className="text-sm text-gray-400">
+              <span className="text-sm text-tertiary">
                 From {getStartingPrice(tool.pricing)}
               </span>
             </div>
@@ -169,7 +169,7 @@ export default async function ComparePage({ params }: Props) {
                 href={tool.affiliateUrl}
                 target="_blank"
                 rel="noopener noreferrer sponsored"
-                className="mt-4 inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                className="mt-4 inline-block rounded-md bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent-hover transition-colors"
               >
                 Try {tool.name}
               </a>
@@ -180,76 +180,76 @@ export default async function ComparePage({ params }: Props) {
 
       {/* Pricing comparison */}
       <section className="mt-14">
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-foreground">
           Pricing Comparison
         </h2>
         <div className="mt-5 overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b border-gray-200">
-                <th className="py-3 text-left font-semibold text-gray-700">
+              <tr className="border-b border-border">
+                <th className="py-3 text-left font-semibold text-secondary">
                   Plan
                 </th>
-                <th className="py-3 text-center font-semibold text-gray-700">
+                <th className="py-3 text-center font-semibold text-secondary">
                   {toolA.name}
                 </th>
-                <th className="py-3 text-center font-semibold text-gray-700">
+                <th className="py-3 text-center font-semibold text-secondary">
                   {toolB.name}
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-gray-100">
-                <td className="py-3 font-medium text-gray-600">Free</td>
+              <tr className="border-b border-border">
+                <td className="py-3 font-medium text-secondary">Free</td>
                 <td className="py-3 text-center">
                   {toolA.pricing.free ? (
-                    <span className="text-green-600 font-medium">Yes</span>
+                    <span className="text-green-400 font-medium">Yes</span>
                   ) : (
-                    <span className="text-gray-400">No</span>
+                    <span className="text-tertiary">No</span>
                   )}
                 </td>
                 <td className="py-3 text-center">
                   {toolB.pricing.free ? (
-                    <span className="text-green-600 font-medium">Yes</span>
+                    <span className="text-green-400 font-medium">Yes</span>
                   ) : (
-                    <span className="text-gray-400">No</span>
+                    <span className="text-tertiary">No</span>
                   )}
                 </td>
               </tr>
-              <tr className="border-b border-gray-100">
-                <td className="py-3 font-medium text-gray-600">Starter</td>
-                <td className="py-3 text-center text-gray-700">
+              <tr className="border-b border-border">
+                <td className="py-3 font-medium text-secondary">Starter</td>
+                <td className="py-3 text-center text-secondary">
                   {toolA.pricing.starter !== null
                     ? `$${toolA.pricing.starter}/mo`
                     : "-"}
                 </td>
-                <td className="py-3 text-center text-gray-700">
+                <td className="py-3 text-center text-secondary">
                   {toolB.pricing.starter !== null
                     ? `$${toolB.pricing.starter}/mo`
                     : "-"}
                 </td>
               </tr>
-              <tr className="border-b border-gray-100">
-                <td className="py-3 font-medium text-gray-600">Pro</td>
-                <td className="py-3 text-center text-gray-700">
+              <tr className="border-b border-border">
+                <td className="py-3 font-medium text-secondary">Pro</td>
+                <td className="py-3 text-center text-secondary">
                   {toolA.pricing.pro !== null
                     ? `$${toolA.pricing.pro}/mo`
                     : "-"}
                 </td>
-                <td className="py-3 text-center text-gray-700">
+                <td className="py-3 text-center text-secondary">
                   {toolB.pricing.pro !== null
                     ? `$${toolB.pricing.pro}/mo`
                     : "-"}
                 </td>
               </tr>
               <tr>
-                <td className="py-3 font-medium text-gray-600">Enterprise</td>
-                <td className="py-3 text-center text-gray-700">
+                <td className="py-3 font-medium text-secondary">Enterprise</td>
+                <td className="py-3 text-center text-secondary">
                   {toolA.pricing.enterprise !== null
                     ? `$${toolA.pricing.enterprise}/mo`
                     : "Custom"}
                 </td>
-                <td className="py-3 text-center text-gray-700">
+                <td className="py-3 text-center text-secondary">
                   {toolB.pricing.enterprise !== null
                     ? `$${toolB.pricing.enterprise}/mo`
                     : "Custom"}
@@ -259,7 +259,7 @@ export default async function ComparePage({ params }: Props) {
           </table>
         </div>
         {toolA.pricing.starter !== null && toolB.pricing.starter !== null && (
-          <p className="mt-3 text-sm text-gray-500">
+          <p className="mt-3 text-sm text-secondary">
             {toolA.pricing.starter < toolB.pricing.starter
               ? `${toolA.name} is cheaper at the Starter tier ($${toolA.pricing.starter}/mo vs $${toolB.pricing.starter}/mo).`
               : toolB.pricing.starter < toolA.pricing.starter
@@ -271,38 +271,38 @@ export default async function ComparePage({ params }: Props) {
 
       {/* Feature matrix */}
       <section className="mt-14">
-        <h2 className="text-xl font-semibold text-gray-900">Feature Matrix</h2>
+        <h2 className="text-xl font-semibold text-foreground">Feature Matrix</h2>
         <div className="mt-5 overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b border-gray-200">
-                <th className="py-3 text-left font-semibold text-gray-700">
+              <tr className="border-b border-border">
+                <th className="py-3 text-left font-semibold text-secondary">
                   Feature
                 </th>
-                <th className="py-3 text-center font-semibold text-gray-700">
+                <th className="py-3 text-center font-semibold text-secondary">
                   {toolA.name}
                 </th>
-                <th className="py-3 text-center font-semibold text-gray-700">
+                <th className="py-3 text-center font-semibold text-secondary">
                   {toolB.name}
                 </th>
               </tr>
             </thead>
             <tbody>
               {allFeatures.map((feature) => (
-                <tr key={feature} className="border-b border-gray-100">
-                  <td className="py-3 text-gray-600">{feature}</td>
+                <tr key={feature} className="border-b border-border">
+                  <td className="py-3 text-secondary">{feature}</td>
                   <td className="py-3 text-center">
                     {toolA.features.includes(feature) ? (
-                      <span className="font-medium text-green-600">Yes</span>
+                      <span className="font-medium text-green-400">Yes</span>
                     ) : (
-                      <span className="text-gray-300">-</span>
+                      <span className="text-tertiary">-</span>
                     )}
                   </td>
                   <td className="py-3 text-center">
                     {toolB.features.includes(feature) ? (
-                      <span className="font-medium text-green-600">Yes</span>
+                      <span className="font-medium text-green-400">Yes</span>
                     ) : (
-                      <span className="text-gray-300">-</span>
+                      <span className="text-tertiary">-</span>
                     )}
                   </td>
                 </tr>
@@ -314,22 +314,22 @@ export default async function ComparePage({ params }: Props) {
 
       {/* Winner sections */}
       <section className="mt-14">
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-foreground">
           When to Choose Each
         </h2>
         <div className="mt-5 grid gap-6 sm:grid-cols-2">
           {[toolA, toolB].map((tool) => (
             <div
               key={tool.slug}
-              className="rounded-lg border border-gray-200 p-5"
+              className="rounded-lg border border-border p-5"
             >
-              <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+              <p className="text-sm font-semibold uppercase tracking-wide text-accent">
                 Choose {tool.name} if you need...
               </p>
               <ul className="mt-3 space-y-2">
                 {tool.pros.map((pro) => (
-                  <li key={pro} className="flex items-start gap-2 text-sm text-gray-700">
-                    <span className="mt-0.5 font-bold text-green-600">+</span>
+                  <li key={pro} className="flex items-start gap-2 text-sm text-secondary">
+                    <span className="mt-0.5 font-bold text-green-400">+</span>
                     {pro}
                   </li>
                 ))}
@@ -338,7 +338,7 @@ export default async function ComparePage({ params }: Props) {
                 {tool.bestFor.map((role) => (
                   <span
                     key={role}
-                    className="rounded bg-blue-50 px-2 py-0.5 text-xs text-blue-600"
+                    className="rounded bg-accent-muted px-2 py-0.5 text-xs text-accent"
                   >
                     {formatSlug(role)}
                   </span>
@@ -356,11 +356,11 @@ export default async function ComparePage({ params }: Props) {
             tool.affiliateUrl ? (
               <div
                 key={tool.slug}
-                className="rounded-lg border border-blue-200 bg-blue-50 p-5 text-center"
+                className="rounded-lg border border-accent/20 bg-accent-muted p-5 text-center"
               >
-                <p className="font-semibold text-gray-900">Try {tool.name}</p>
+                <p className="font-semibold text-foreground">Try {tool.name}</p>
                 {tool.affiliateProgram && (
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-secondary">
                     {tool.affiliateProgram}
                   </p>
                 )}
@@ -368,7 +368,7 @@ export default async function ComparePage({ params }: Props) {
                   href={tool.affiliateUrl}
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="mt-3 inline-block rounded-md bg-blue-600 px-5 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                  className="mt-3 inline-block rounded-md bg-accent px-5 py-2 text-sm font-medium text-white hover:bg-accent-hover transition-colors"
                 >
                   Get started
                 </a>
@@ -379,8 +379,8 @@ export default async function ComparePage({ params }: Props) {
       )}
 
       {/* Related comparisons */}
-      <section className="mt-14 rounded-lg border border-gray-200 bg-gray-50 p-6">
-        <h2 className="text-base font-semibold text-gray-900">
+      <section className="mt-14 rounded-lg border border-border bg-surface p-6">
+        <h2 className="text-base font-semibold text-foreground">
           Related Comparisons
         </h2>
         <div className="mt-3 flex flex-wrap gap-3">
@@ -390,7 +390,7 @@ export default async function ComparePage({ params }: Props) {
               <Link
                 key={s}
                 href={`/compare/${toolA.slug}-vs-${s}`}
-                className="text-sm text-blue-600 hover:text-blue-800"
+                className="text-sm text-accent hover:text-accent-hover"
               >
                 {toolA.name} vs {formatSlug(s)}
               </Link>
@@ -401,7 +401,7 @@ export default async function ComparePage({ params }: Props) {
               <Link
                 key={s}
                 href={`/compare/${toolB.slug}-vs-${s}`}
-                className="text-sm text-blue-600 hover:text-blue-800"
+                className="text-sm text-accent hover:text-accent-hover"
               >
                 {toolB.name} vs {formatSlug(s)}
               </Link>
@@ -411,14 +411,14 @@ export default async function ComparePage({ params }: Props) {
 
       {/* FAQ Section */}
       <section className="mt-14">
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-foreground">
           Frequently Asked Questions
         </h2>
         <div className="mt-6 space-y-6">
           {faqEntries.map((faq) => (
             <div key={faq.q}>
-              <h3 className="text-base font-semibold text-gray-900">{faq.q}</h3>
-              <p className="mt-2 text-sm text-gray-600">{faq.a}</p>
+              <h3 className="text-base font-semibold text-foreground">{faq.q}</h3>
+              <p className="mt-2 text-sm text-secondary">{faq.a}</p>
             </div>
           ))}
         </div>

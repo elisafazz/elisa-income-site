@@ -2,30 +2,40 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-gray-50">
+    <footer className="border-t border-border bg-surface">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           <div>
-            <p className="text-sm font-semibold text-gray-900">AI Tool Breakdown</p>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="font-heading text-sm font-semibold text-foreground">
+              AI Tool Breakdown
+            </p>
+            <p className="mt-2 text-sm text-secondary">
               Honest, in-depth AI and SaaS tool reviews. No vendor bias.
             </p>
           </div>
           <div>
-            <p className="text-sm font-semibold text-gray-900">Content</p>
+            <p className="text-sm font-semibold text-foreground">Content</p>
             <ul className="mt-2 space-y-1">
               <li>
                 <Link
                   href="/blog"
-                  className="text-sm text-gray-500 hover:text-gray-900"
+                  className="text-sm text-secondary hover:text-accent transition-colors"
                 >
                   Blog
                 </Link>
               </li>
               <li>
                 <Link
+                  href="/tools"
+                  className="text-sm text-secondary hover:text-accent transition-colors"
+                >
+                  Tools
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/products"
-                  className="text-sm text-gray-500 hover:text-gray-900"
+                  className="text-sm text-secondary hover:text-accent transition-colors"
                 >
                   Products
                 </Link>
@@ -33,7 +43,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/newsletter"
-                  className="text-sm text-gray-500 hover:text-gray-900"
+                  className="text-sm text-secondary hover:text-accent transition-colors"
                 >
                   Newsletter
                 </Link>
@@ -41,12 +51,12 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <p className="text-sm font-semibold text-gray-900">Legal</p>
+            <p className="text-sm font-semibold text-foreground">Legal</p>
             <ul className="mt-2 space-y-1">
               <li>
                 <Link
                   href="/about"
-                  className="text-sm text-gray-500 hover:text-gray-900"
+                  className="text-sm text-secondary hover:text-accent transition-colors"
                 >
                   About
                 </Link>
@@ -54,7 +64,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/affiliate-disclosure"
-                  className="text-sm text-gray-500 hover:text-gray-900"
+                  className="text-sm text-secondary hover:text-accent transition-colors"
                 >
                   Affiliate Disclosure
                 </Link>
@@ -62,7 +72,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-200 pt-6 text-center text-xs text-gray-400">
+        <div className="mt-8 border-t border-border pt-6 text-center text-xs text-tertiary">
           {new Date().getFullYear()} AI Tool Breakdown. All rights reserved.
         </div>
       </div>

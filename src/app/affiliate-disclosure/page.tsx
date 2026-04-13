@@ -8,18 +8,18 @@ export const metadata: Metadata = {
 export default function AffiliateDisclosurePage() {
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="text-3xl font-bold text-gray-900">
+      <h1 className="text-3xl font-bold text-foreground">
         Affiliate Disclosure
       </h1>
 
-      <div className="mt-8 space-y-4 text-gray-600">
+      <div className="mt-8 space-y-4 text-secondary">
         <p>
           AI Tool Breakdown is reader-supported. Some of the links on this site are
           affiliate links, meaning we may earn a commission if you click through
           and make a purchase. This comes at no additional cost to you.
         </p>
 
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-foreground">
           What this means
         </h2>
         <p>
@@ -28,7 +28,7 @@ export default function AffiliateDisclosurePage() {
           continue producing free content.
         </p>
 
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-foreground">
           What this does not mean
         </h2>
         <p>
@@ -39,7 +39,7 @@ export default function AffiliateDisclosurePage() {
           best option, we will recommend it anyway.
         </p>
 
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-foreground">
           How to identify affiliate links
         </h2>
         <p>
@@ -47,7 +47,7 @@ export default function AffiliateDisclosurePage() {
           top. We clearly mark which content is editorially independent.
         </p>
 
-        <p className="mt-6 text-sm text-gray-400">
+        <p className="mt-6 text-sm text-tertiary">
           Questions? Reach out via the contact info on our About page.
         </p>
       </div>

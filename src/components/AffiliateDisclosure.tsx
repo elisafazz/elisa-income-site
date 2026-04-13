@@ -1,6 +1,6 @@
 export function AffiliateDisclosure() {
   return (
-    <aside className="my-6 rounded-md border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+    <aside className="my-6 rounded-md border border-amber-800 bg-amber-950 p-4 text-sm text-amber-300">
       <p>
         <strong>Disclosure:</strong> Some links in this article are affiliate
         links. If you purchase through them, we may earn a commission at no extra

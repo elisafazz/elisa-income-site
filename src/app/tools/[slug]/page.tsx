@@ -110,39 +110,39 @@ export default async function ToolPage({ params }: Props) {
       />
 
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <Link href="/tools" className="hover:text-gray-900">
+      <nav className="mb-6 flex items-center gap-2 text-sm text-secondary">
+        <Link href="/tools" className="hover:text-foreground">
           Tools
         </Link>
         <span>/</span>
         <span className="capitalize">{formatSlug(tool.category)}</span>
         <span>/</span>
-        <span className="text-gray-900">{tool.name}</span>
+        <span className="text-foreground">{tool.name}</span>
       </nav>
 
       {/* Header */}
       <div className="flex items-start justify-between gap-6">
         <div>
-          <span className="text-xs font-medium uppercase tracking-wide text-blue-600">
+          <span className="text-xs font-medium uppercase tracking-wide text-accent">
             {formatSlug(tool.category)}
           </span>
-          <h1 className="mt-1 text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 className="mt-1 text-3xl font-bold text-foreground sm:text-4xl">
             {tool.name}
           </h1>
-          <p className="mt-3 text-lg text-gray-600">{tool.description}</p>
-          <p className="mt-3 text-base text-gray-700">
+          <p className="mt-3 text-lg text-secondary">{tool.description}</p>
+          <p className="mt-3 text-base text-secondary">
             {tool.name} scores {tool.rating}/5 in our review{tool.pricing.free ? " and offers a free tier" : `, with plans starting at ${getStartingPrice(tool.pricing)}`}.{" "}
             It is best suited for {tool.bestFor.map((r) => formatSlug(r) + "s").join(" and ")} who need {tool.features.slice(0, 2).join(" and ").toLowerCase()}.{" "}
             {tool.pros[0] ? `A standout strength: ${tool.pros[0].toLowerCase()}.` : ""}
           </p>
           <div className="mt-3 flex items-center gap-4">
             <div className="flex items-center gap-1">
-              <span className="text-sm font-semibold text-gray-900">
+              <span className="text-sm font-semibold text-foreground">
                 {tool.rating}
               </span>
-              <span className="text-sm text-gray-500">/ 5</span>
+              <span className="text-sm text-secondary">/ 5</span>
             </div>
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-tertiary">
               Starting at {getStartingPrice(tool.pricing)}
             </span>
           </div>
@@ -152,7 +152,7 @@ export default async function ToolPage({ params }: Props) {
             href={tool.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer sponsored"
-            className="shrink-0 rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+            className="shrink-0 rounded-md bg-accent px-5 py-2.5 text-sm font-medium text-white hover:bg-accent-hover transition-colors"
           >
             Try {tool.name}
           </a>
@@ -163,46 +163,46 @@ export default async function ToolPage({ params }: Props) {
 
       {/* Pricing */}
       <section className="mt-12">
-        <h2 className="text-xl font-semibold text-gray-900">Pricing</h2>
+        <h2 className="text-xl font-semibold text-foreground">Pricing</h2>
         <div className="mt-4 grid gap-3 sm:grid-cols-4">
           {tool.pricing.free && (
-            <div className="rounded-lg border border-gray-200 p-4 text-center">
-              <p className="text-sm font-medium text-gray-500">Free</p>
-              <p className="mt-1 text-2xl font-bold text-gray-900">$0</p>
-              <p className="mt-1 text-xs text-gray-400">Forever</p>
+            <div className="rounded-lg border border-border p-4 text-center">
+              <p className="text-sm font-medium text-secondary">Free</p>
+              <p className="mt-1 text-2xl font-bold text-foreground">$0</p>
+              <p className="mt-1 text-xs text-tertiary">Forever</p>
             </div>
           )}
           {tool.pricing.starter !== null && (
-            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-center">
-              <p className="text-sm font-medium text-blue-600">Starter</p>
-              <p className="mt-1 text-2xl font-bold text-gray-900">
+            <div className="rounded-lg border border-accent/20 bg-accent-muted p-4 text-center">
+              <p className="text-sm font-medium text-accent">Starter</p>
+              <p className="mt-1 text-2xl font-bold text-foreground">
                 ${tool.pricing.starter}
               </p>
-              <p className="mt-1 text-xs text-gray-400">per user/mo</p>
+              <p className="mt-1 text-xs text-tertiary">per user/mo</p>
             </div>
           )}
           {tool.pricing.pro !== null && (
-            <div className="rounded-lg border border-gray-200 p-4 text-center">
-              <p className="text-sm font-medium text-gray-500">Pro</p>
-              <p className="mt-1 text-2xl font-bold text-gray-900">
+            <div className="rounded-lg border border-border p-4 text-center">
+              <p className="text-sm font-medium text-secondary">Pro</p>
+              <p className="mt-1 text-2xl font-bold text-foreground">
                 ${tool.pricing.pro}
               </p>
-              <p className="mt-1 text-xs text-gray-400">per user/mo</p>
+              <p className="mt-1 text-xs text-tertiary">per user/mo</p>
             </div>
           )}
           {tool.pricing.enterprise !== null ? (
-            <div className="rounded-lg border border-gray-200 p-4 text-center">
-              <p className="text-sm font-medium text-gray-500">Enterprise</p>
-              <p className="mt-1 text-2xl font-bold text-gray-900">
+            <div className="rounded-lg border border-border p-4 text-center">
+              <p className="text-sm font-medium text-secondary">Enterprise</p>
+              <p className="mt-1 text-2xl font-bold text-foreground">
                 ${tool.pricing.enterprise}
               </p>
-              <p className="mt-1 text-xs text-gray-400">per user/mo</p>
+              <p className="mt-1 text-xs text-tertiary">per user/mo</p>
             </div>
           ) : (
-            <div className="rounded-lg border border-gray-200 p-4 text-center">
-              <p className="text-sm font-medium text-gray-500">Enterprise</p>
-              <p className="mt-1 text-lg font-bold text-gray-900">Custom</p>
-              <p className="mt-1 text-xs text-gray-400">Contact sales</p>
+            <div className="rounded-lg border border-border p-4 text-center">
+              <p className="text-sm font-medium text-secondary">Enterprise</p>
+              <p className="mt-1 text-lg font-bold text-foreground">Custom</p>
+              <p className="mt-1 text-xs text-tertiary">Contact sales</p>
             </div>
           )}
         </div>
@@ -210,12 +210,12 @@ export default async function ToolPage({ params }: Props) {
 
       {/* Features */}
       <section className="mt-12">
-        <h2 className="text-xl font-semibold text-gray-900">Key Features</h2>
+        <h2 className="text-xl font-semibold text-foreground">Key Features</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {tool.features.map((feature) => (
             <span
               key={feature}
-              className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-sm text-gray-700"
+              className="rounded-full border border-border bg-surface px-3 py-1 text-sm text-secondary"
             >
               {feature}
             </span>
@@ -225,13 +225,13 @@ export default async function ToolPage({ params }: Props) {
 
       {/* Best For */}
       <section className="mt-12">
-        <h2 className="text-xl font-semibold text-gray-900">Best For</h2>
+        <h2 className="text-xl font-semibold text-foreground">Best For</h2>
         <div className="mt-4 flex flex-wrap gap-2">
           {tool.bestFor.map((role) => (
             <Link
               key={role}
               href={`/best/${tool.category}-for-${role}`}
-              className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-sm text-blue-700 hover:bg-blue-100 transition-colors"
+              className="rounded-full border border-accent/20 bg-accent-muted px-3 py-1 text-sm text-accent hover:bg-blue-100 transition-colors"
             >
               {formatSlug(role)}
             </Link>
@@ -241,29 +241,29 @@ export default async function ToolPage({ params }: Props) {
 
       {/* Pros and Cons */}
       <section className="mt-12">
-        <h2 className="text-xl font-semibold text-gray-900">Pros and Cons</h2>
+        <h2 className="text-xl font-semibold text-foreground">Pros and Cons</h2>
         <div className="mt-4 grid gap-6 sm:grid-cols-2">
-          <div className="rounded-lg border border-green-200 bg-green-50 p-5">
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-green-700">
+          <div className="rounded-lg border border-green-800 bg-green-950 p-5">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-green-400">
               Pros
             </h3>
             <ul className="mt-3 space-y-2">
               {tool.pros.map((pro) => (
-                <li key={pro} className="flex items-start gap-2 text-sm text-gray-700">
-                  <span className="mt-0.5 text-green-600 font-bold">+</span>
+                <li key={pro} className="flex items-start gap-2 text-sm text-secondary">
+                  <span className="mt-0.5 text-green-400 font-bold">+</span>
                   {pro}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-lg border border-red-200 bg-red-50 p-5">
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-red-700">
+          <div className="rounded-lg border border-red-800 bg-red-950 p-5">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-red-400">
               Cons
             </h3>
             <ul className="mt-3 space-y-2">
               {tool.cons.map((con) => (
-                <li key={con} className="flex items-start gap-2 text-sm text-gray-700">
-                  <span className="mt-0.5 text-red-600 font-bold">-</span>
+                <li key={con} className="flex items-start gap-2 text-sm text-secondary">
+                  <span className="mt-0.5 text-red-400 font-bold">-</span>
                   {con}
                 </li>
               ))}
@@ -274,11 +274,11 @@ export default async function ToolPage({ params }: Props) {
 
       {/* Affiliate CTA */}
       {hasAffiliateLink && (
-        <section className="mt-12 rounded-lg border border-blue-200 bg-blue-50 p-6 text-center">
-          <p className="text-base font-semibold text-gray-900">
+        <section className="mt-12 rounded-lg border border-accent/20 bg-accent-muted p-6 text-center">
+          <p className="text-base font-semibold text-foreground">
             Ready to try {tool.name}?
           </p>
-          <p className="mt-1 text-sm text-gray-600">
+          <p className="mt-1 text-sm text-secondary">
             {tool.affiliateProgram
               ? `Affiliate note: ${tool.affiliateProgram}`
               : "Start with the free tier - no credit card required."}
@@ -287,7 +287,7 @@ export default async function ToolPage({ params }: Props) {
             href={tool.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer sponsored"
-            className="mt-4 inline-block rounded-md bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+            className="mt-4 inline-block rounded-md bg-accent px-6 py-2.5 text-sm font-medium text-white hover:bg-accent-hover transition-colors"
           >
             Get started with {tool.name}
           </a>
@@ -297,7 +297,7 @@ export default async function ToolPage({ params }: Props) {
       {/* Alternatives */}
       {alternatives.length > 0 && (
         <section className="mt-12">
-          <h2 className="text-xl font-semibold text-gray-900">
+          <h2 className="text-xl font-semibold text-foreground">
             Alternatives to {tool.name}
           </h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
@@ -307,15 +307,15 @@ export default async function ToolPage({ params }: Props) {
                 <Link
                   key={alt.slug}
                   href={`/tools/${alt.slug}`}
-                  className="group rounded-lg border border-gray-200 p-4 hover:border-gray-300 hover:shadow-sm transition-all"
+                  className="group rounded-lg border border-border p-4 hover:border-border-hover hover:shadow-sm transition-all"
                 >
-                  <p className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <p className="font-semibold text-foreground group-hover:text-accent transition-colors">
                     {alt.name}
                   </p>
-                  <p className="mt-1 text-sm text-gray-500 line-clamp-2">
+                  <p className="mt-1 text-sm text-secondary line-clamp-2">
                     {alt.description}
                   </p>
-                  <p className="mt-2 text-xs text-gray-400">
+                  <p className="mt-2 text-xs text-tertiary">
                     {getStartingPrice(alt.pricing)}
                   </p>
                 </Link>
@@ -329,7 +329,7 @@ export default async function ToolPage({ params }: Props) {
                 <Link
                   key={alt.slug}
                   href={`/compare/${tool.slug}-vs-${alt.slug}`}
-                  className="text-sm text-blue-600 hover:text-blue-800"
+                  className="text-sm text-accent hover:text-accent-hover"
                 >
                   {tool.name} vs {alt.name}
                 </Link>
@@ -341,14 +341,14 @@ export default async function ToolPage({ params }: Props) {
 
       {/* FAQ Section */}
       <section className="mt-14">
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-foreground">
           Frequently Asked Questions
         </h2>
         <div className="mt-6 space-y-6">
           {faqEntries.map((faq) => (
             <div key={faq.q}>
-              <h3 className="text-base font-semibold text-gray-900">{faq.q}</h3>
-              <p className="mt-2 text-sm text-gray-600">{faq.a}</p>
+              <h3 className="text-base font-semibold text-foreground">{faq.q}</h3>
+              <p className="mt-2 text-sm text-secondary">{faq.a}</p>
             </div>
           ))}
         </div>

@@ -1,26 +1,31 @@
+"use client";
+
+import Script from "next/script";
+
 export function NewsletterSignup() {
   return (
-    <div className="rounded-lg bg-gray-50 p-6">
-      <p className="text-lg font-semibold text-gray-900">
-        Get the weekly AI tool roundup
-      </p>
-      <p className="mt-1 text-sm text-gray-600">
-        One email per week. The best AI tools, tips, and deals - no spam.
-      </p>
+    <>
+      <Script
+        src="https://subscribe-forms.beehiiv.com/embed.js"
+        strategy="lazyOnload"
+      />
       <iframe
-        src="https://aitoolbreakdown.beehiiv.com/subscribe"
+        src="https://subscribe-forms.beehiiv.com/762e2c33-80b5-4065-9736-7a9a7b209c55"
+        className="beehiiv-embed"
         data-test-id="beehiiv-embed"
-        height="52"
         frameBorder="0"
         scrolling="no"
         style={{
-          margin: 0,
-          borderRadius: "0px",
-          backgroundColor: "transparent",
           width: "100%",
-          marginTop: "16px",
+          maxWidth: "463px",
+          height: "365px",
+          margin: "0 auto",
+          borderRadius: "12px",
+          backgroundColor: "transparent",
+          boxShadow: "none",
+          display: "block",
         }}
       />
-    </div>
+    </>
   );
 }

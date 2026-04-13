@@ -9,16 +9,16 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="text-3xl font-bold text-gray-900">About AI Tool Breakdown</h1>
+      <h1 className="text-3xl font-bold text-foreground">About AI Tool Breakdown</h1>
 
-      <div className="mt-8 space-y-6 text-gray-600">
+      <div className="mt-8 space-y-6 text-secondary">
         <p>
           AI Tool Breakdown is an independent review site for AI and SaaS tools. We
           write honest, in-depth comparisons to help you pick the right tools for
           your workflow without wading through vendor marketing.
         </p>
 
-        <h2 className="text-xl font-semibold text-gray-900">How we review</h2>
+        <h2 className="text-xl font-semibold text-foreground">How we review</h2>
         <p>
           Every tool we review is actually tested. We compare features,
           pricing (at real team sizes, not just the cheapest tier), and
@@ -26,7 +26,7 @@ export default function AboutPage() {
           say so.
         </p>
 
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-foreground">
           How we make money
         </h2>
         <p>
@@ -34,7 +34,7 @@ export default function AboutPage() {
           our links, we may earn a commission at no extra cost to you. This
           never influences our reviews - we recommend tools based on quality,
           not commission rates. See our{" "}
-          <a href="/affiliate-disclosure" className="text-blue-600 hover:underline">
+          <a href="/affiliate-disclosure" className="text-accent hover:underline">
             affiliate disclosure
           </a>{" "}
           for full details.
@@ -44,7 +44,7 @@ export default function AboutPage() {
           complement our reviews. These are things we would use ourselves.
         </p>
 
-        <h2 className="text-xl font-semibold text-gray-900">What we avoid</h2>
+        <h2 className="text-xl font-semibold text-foreground">What we avoid</h2>
         <ul className="list-none space-y-1">
           <li>- Clickbait or misleading headlines</li>
           <li>- Fake urgency or scarcity tactics</li>

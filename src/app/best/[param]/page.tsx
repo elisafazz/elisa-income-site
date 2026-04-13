@@ -105,34 +105,34 @@ export default async function BestForPage({ params }: Props) {
       />
 
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-        <Link href="/tools" className="hover:text-gray-900">
+      <nav className="mb-6 flex items-center gap-2 text-sm text-secondary">
+        <Link href="/tools" className="hover:text-foreground">
           Tools
         </Link>
         <span>/</span>
         <Link
           href={`/tools#${category}`}
-          className="hover:text-gray-900 capitalize"
+          className="hover:text-foreground capitalize"
         >
           {categoryLabel}
         </Link>
         <span>/</span>
-        <span className="text-gray-900">For {roleLabel}s</span>
+        <span className="text-foreground">For {roleLabel}s</span>
       </nav>
 
-      <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+      <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
         Best {categoryLabel} Tools for {roleLabel}s
       </h1>
-      <p className="mt-3 text-lg text-gray-600">
+      <p className="mt-3 text-lg text-secondary">
         {tools.length} tools reviewed and ranked for {roleLabel}s. Updated April
         2026.
       </p>
 
       {topPick && (
-        <div className="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4">
-          <p className="text-sm font-semibold text-blue-700">Top pick</p>
-          <p className="mt-1 text-base text-gray-900">
-            <Link href={`/tools/${topPick.slug}`} className="font-bold hover:text-blue-600 transition-colors">
+        <div className="mt-4 rounded-lg border border-accent/20 bg-accent-muted p-4">
+          <p className="text-sm font-semibold text-accent">Top pick</p>
+          <p className="mt-1 text-base text-foreground">
+            <Link href={`/tools/${topPick.slug}`} className="font-bold hover:text-accent transition-colors">
               {topPick.name}
             </Link>{" "}
             ({topPick.rating}/5, from {getStartingPrice(topPick.pricing)}) - {topPick.pros[0]?.toLowerCase() || topPick.description.toLowerCase()}.
@@ -147,10 +147,10 @@ export default async function BestForPage({ params }: Props) {
         {tools.map((tool, index) => (
           <div
             key={tool.slug}
-            className="rounded-lg border border-gray-200 p-6"
+            className="rounded-lg border border-border p-6"
           >
             <div className="flex items-start gap-4">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
                 {index + 1}
               </span>
               <div className="flex-1">
@@ -158,19 +158,19 @@ export default async function BestForPage({ params }: Props) {
                   <div>
                     <Link
                       href={`/tools/${tool.slug}`}
-                      className="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors"
+                      className="text-xl font-bold text-foreground hover:text-accent transition-colors"
                     >
                       {tool.name}
                     </Link>
-                    <p className="mt-1 text-sm text-gray-500">
+                    <p className="mt-1 text-sm text-secondary">
                       {tool.description}
                     </p>
                   </div>
                   <div className="shrink-0 text-right">
-                    <p className="text-sm font-semibold text-gray-700">
+                    <p className="text-sm font-semibold text-secondary">
                       {tool.rating} / 5
                     </p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-tertiary">
                       {getStartingPrice(tool.pricing)}
                     </p>
                   </div>
@@ -178,16 +178,16 @@ export default async function BestForPage({ params }: Props) {
 
                 {/* Why it's good for this role */}
                 <div className="mt-4">
-                  <p className="text-sm font-semibold text-gray-700">
+                  <p className="text-sm font-semibold text-secondary">
                     Why it works for {roleLabel}s
                   </p>
                   <ul className="mt-2 space-y-1">
                     {tool.pros.map((pro) => (
                       <li
                         key={pro}
-                        className="flex items-start gap-2 text-sm text-gray-600"
+                        className="flex items-start gap-2 text-sm text-secondary"
                       >
-                        <span className="mt-0.5 font-bold text-green-600">
+                        <span className="mt-0.5 font-bold text-green-400">
                           +
                         </span>
                         {pro}
@@ -199,14 +199,14 @@ export default async function BestForPage({ params }: Props) {
                 {/* Caveats */}
                 {tool.cons.length > 0 && (
                   <div className="mt-3">
-                    <p className="text-sm font-semibold text-gray-700">
+                    <p className="text-sm font-semibold text-secondary">
                       Watch out for
                     </p>
                     <ul className="mt-2 space-y-1">
                       {tool.cons.slice(0, 2).map((con) => (
                         <li
                           key={con}
-                          className="flex items-start gap-2 text-sm text-gray-500"
+                          className="flex items-start gap-2 text-sm text-secondary"
                         >
                           <span className="mt-0.5 font-bold text-red-400">
                             -
@@ -222,17 +222,17 @@ export default async function BestForPage({ params }: Props) {
                 <div className="mt-4 flex flex-wrap items-center gap-3">
                   <div className="flex gap-2">
                     {tool.pricing.free && (
-                      <span className="rounded bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
+                      <span className="rounded bg-green-950 px-2 py-0.5 text-xs font-medium text-green-400">
                         Free tier
                       </span>
                     )}
                     {tool.pricing.starter !== null && (
-                      <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
+                      <span className="rounded bg-surface-elevated px-2 py-0.5 text-xs text-secondary">
                         Starter ${tool.pricing.starter}/mo
                       </span>
                     )}
                     {tool.pricing.pro !== null && (
-                      <span className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
+                      <span className="rounded bg-surface-elevated px-2 py-0.5 text-xs text-secondary">
                         Pro ${tool.pricing.pro}/mo
                       </span>
                     )}
@@ -240,7 +240,7 @@ export default async function BestForPage({ params }: Props) {
                   <div className="flex gap-3 ml-auto">
                     <Link
                       href={`/tools/${tool.slug}`}
-                      className="text-sm text-blue-600 hover:text-blue-800"
+                      className="text-sm text-accent hover:text-accent-hover"
                     >
                       Full review
                     </Link>
@@ -249,7 +249,7 @@ export default async function BestForPage({ params }: Props) {
                         href={tool.affiliateUrl}
                         target="_blank"
                         rel="noopener noreferrer sponsored"
-                        className="rounded-md bg-blue-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+                        className="rounded-md bg-accent px-4 py-1.5 text-sm font-medium text-white hover:bg-accent-hover transition-colors"
                       >
                         Try it
                       </a>
@@ -264,8 +264,8 @@ export default async function BestForPage({ params }: Props) {
 
       {/* Compare section */}
       {tools.length >= 2 && (
-        <section className="mt-14 rounded-lg border border-gray-200 bg-gray-50 p-6">
-          <h2 className="text-base font-semibold text-gray-900">
+        <section className="mt-14 rounded-lg border border-border bg-surface p-6">
+          <h2 className="text-base font-semibold text-foreground">
             Compare head-to-head
           </h2>
           <div className="mt-3 flex flex-wrap gap-3">
@@ -274,7 +274,7 @@ export default async function BestForPage({ params }: Props) {
                 <Link
                   key={`${toolA.slug}-vs-${toolB.slug}`}
                   href={`/compare/${toolA.slug}-vs-${toolB.slug}`}
-                  className="text-sm text-blue-600 hover:text-blue-800"
+                  className="text-sm text-accent hover:text-accent-hover"
                 >
                   {toolA.name} vs {toolB.name}
                 </Link>
@@ -285,8 +285,8 @@ export default async function BestForPage({ params }: Props) {
       )}
 
       {/* Related best-for pages */}
-      <section className="mt-8 rounded-lg border border-gray-200 bg-gray-50 p-6">
-        <h2 className="text-base font-semibold text-gray-900">
+      <section className="mt-8 rounded-lg border border-border bg-surface p-6">
+        <h2 className="text-base font-semibold text-foreground">
           More {categoryLabel} guides
         </h2>
         <div className="mt-3 flex flex-wrap gap-3">
@@ -298,7 +298,7 @@ export default async function BestForPage({ params }: Props) {
               <Link
                 key={r}
                 href={`/best/${category}-for-${r}`}
-                className="text-sm text-blue-600 hover:text-blue-800"
+                className="text-sm text-accent hover:text-accent-hover"
               >
                 Best {categoryLabel} for {formatSlug(r)}s
               </Link>
@@ -308,14 +308,14 @@ export default async function BestForPage({ params }: Props) {
 
       {/* FAQ Section */}
       <section className="mt-14">
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-foreground">
           Frequently Asked Questions
         </h2>
         <div className="mt-6 space-y-6">
           {faqEntries.map((faq) => (
             <div key={faq.q}>
-              <h3 className="text-base font-semibold text-gray-900">{faq.q}</h3>
-              <p className="mt-2 text-sm text-gray-600">{faq.a}</p>
+              <h3 className="text-base font-semibold text-foreground">{faq.q}</h3>
+              <p className="mt-2 text-sm text-secondary">{faq.a}</p>
             </div>
           ))}
         </div>
