@@ -51,7 +51,7 @@ export function Header() {
           href="/"
           className="flex items-center gap-2 font-heading text-lg font-bold tracking-tight text-foreground"
         >
-          <Image src="/logo.png" alt="ATB" width={32} height={32} className="rounded" />
+          <Image src="/logo.png" alt="ATB" width={40} height={40} className="rounded" />
           AI Tool Breakdown
         </Link>
 
