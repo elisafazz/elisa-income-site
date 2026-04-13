@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
@@ -48,8 +49,9 @@ export function Header() {
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link
           href="/"
-          className="font-heading text-lg font-bold tracking-tight text-foreground"
+          className="flex items-center gap-2 font-heading text-lg font-bold tracking-tight text-foreground"
         >
+          <Image src="/logo.png" alt="ATB" width={32} height={32} className="rounded" />
           AI Tool Breakdown
         </Link>
 
