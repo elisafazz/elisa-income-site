@@ -10,16 +10,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://aitoolbreakdown.com"),
   title: {
-    default: "AI Tool Stack - Honest AI & SaaS Tool Reviews",
-    template: "%s | AI Tool Stack",
+    default: "AI Tool Breakdown - Honest AI & SaaS Tool Reviews",
+    template: "%s | AI Tool Breakdown",
   },
   description:
     "Honest, in-depth comparisons of AI and SaaS tools. No vendor bias, no fluff - just real reviews to help you pick the right tools for your workflow.",
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "AI Tool Stack",
+    url: "https://aitoolbreakdown.com",
+    siteName: "AI Tool Breakdown",
   },
   robots: {
     index: true,

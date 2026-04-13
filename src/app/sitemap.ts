@@ -5,7 +5,7 @@ import {
   getAllBestForParams,
 } from "@/lib/tools";
 
-const BASE_URL = "https://elisa-income-site.vercel.app"; // TODO: update to custom domain
+const BASE_URL = "https://aitoolbreakdown.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const tools = getAllTools();

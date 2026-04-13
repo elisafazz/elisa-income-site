@@ -3,17 +3,17 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About AI Tool Stack - who we are, how we review tools, and our commitment to honest content.",
+    "About AI Tool Breakdown - who we are, how we review tools, and our commitment to honest content.",
 };
 
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-2xl px-6 py-16">
-      <h1 className="text-3xl font-bold text-gray-900">About AI Tool Stack</h1>
+      <h1 className="text-3xl font-bold text-gray-900">About AI Tool Breakdown</h1>
 
       <div className="mt-8 space-y-6 text-gray-600">
         <p>
-          AI Tool Stack is an independent review site for AI and SaaS tools. We
+          AI Tool Breakdown is an independent review site for AI and SaaS tools. We
           write honest, in-depth comparisons to help you pick the right tools for
           your workflow without wading through vendor marketing.
         </p>

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  getAllComparePairs,
   parseCompareParam,
   formatSlug,
   getStartingPrice,
@@ -15,9 +14,9 @@ type Props = {
   params: Promise<{ pair: string }>;
 };
 
-export async function generateStaticParams() {
-  return getAllComparePairs().map((pair) => ({ pair }));
-}
+// Render on-demand with ISR (11K+ pairs exceeds Vercel Hobby deploy limit)
+export const dynamicParams = true;
+export const revalidate = 86400; // re-validate cached pages every 24h
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { pair } = await params;

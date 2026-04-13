@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Affiliate Disclosure",
-  description: "How affiliate links work on AI Tool Stack.",
+  description: "How affiliate links work on AI Tool Breakdown.",
 };
 
 export default function AffiliateDisclosurePage() {
@@ -14,7 +14,7 @@ export default function AffiliateDisclosurePage() {
 
       <div className="mt-8 space-y-4 text-gray-600">
         <p>
-          AI Tool Stack is reader-supported. Some of the links on this site are
+          AI Tool Breakdown is reader-supported. Some of the links on this site are
           affiliate links, meaning we may earn a commission if you click through
           and make a purchase. This comes at no additional cost to you.
         </p>

@@ -6,7 +6,7 @@ export function Footer() {
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           <div>
-            <p className="text-sm font-semibold text-gray-900">AI Tool Stack</p>
+            <p className="text-sm font-semibold text-gray-900">AI Tool Breakdown</p>
             <p className="mt-2 text-sm text-gray-500">
               Honest, in-depth AI and SaaS tool reviews. No vendor bias.
             </p>
@@ -63,7 +63,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-gray-200 pt-6 text-center text-xs text-gray-400">
-          {new Date().getFullYear()} AI Tool Stack. All rights reserved.
+          {new Date().getFullYear()} AI Tool Breakdown. All rights reserved.
         </div>
       </div>
     </footer>
