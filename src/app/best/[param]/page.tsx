@@ -9,6 +9,7 @@ import {
 } from "@/lib/tools";
 import { AffiliateDisclosure } from "@/components/AffiliateDisclosure";
 import { NewsletterCTA } from "@/components/NewsletterCTA";
+import { ProductCTA } from "@/components/ProductCTA";
 
 type Props = {
   params: Promise<{ param: string }>;
@@ -320,6 +321,8 @@ export default async function BestForPage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      <ProductCTA category={category} roles={[role]} />
 
       <NewsletterCTA />
     </div>

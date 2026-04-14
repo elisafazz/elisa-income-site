@@ -12,6 +12,7 @@ import {
 } from "@/lib/tools";
 import { AffiliateDisclosure } from "@/components/AffiliateDisclosure";
 import { NewsletterCTA } from "@/components/NewsletterCTA";
+import { ProductCTA } from "@/components/ProductCTA";
 import { RelatedContent } from "@/components/RelatedContent";
 
 async function loadVerdict(slugA: string, slugB: string): Promise<string | null> {
@@ -455,6 +456,11 @@ export default async function ComparePage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      <ProductCTA
+        category={toolA.category}
+        roles={[...new Set([...toolA.bestFor, ...toolB.bestFor])]}
+      />
 
       <RelatedContent
         category={toolA.category}

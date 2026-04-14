@@ -9,6 +9,7 @@ import {
 } from "@/lib/tools";
 import { AffiliateDisclosure } from "@/components/AffiliateDisclosure";
 import { NewsletterCTA } from "@/components/NewsletterCTA";
+import { ProductCTA } from "@/components/ProductCTA";
 import { RelatedContent } from "@/components/RelatedContent";
 
 type Props = {
@@ -353,6 +354,8 @@ export default async function ToolPage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      <ProductCTA category={tool.category} roles={tool.bestFor} />
 
       <RelatedContent
         category={tool.category}
