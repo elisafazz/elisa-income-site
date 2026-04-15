@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# etsy api credentials and tokens
+scripts/etsy/.etsy-credentials.json
+scripts/etsy/.etsy-tokens.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

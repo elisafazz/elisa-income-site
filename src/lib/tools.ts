@@ -1,4 +1,5 @@
 import toolsData from "@/data/tools.json";
+import { getAffiliateLink } from "@/lib/affiliate-links";
 
 export interface ToolPricing {
   free: boolean;
@@ -24,7 +25,10 @@ export interface Tool {
   lastUpdated: string;
 }
 
-const tools: Tool[] = toolsData as unknown as Tool[];
+const tools: Tool[] = (toolsData as unknown as Tool[]).map((tool) => ({
+  ...tool,
+  affiliateUrl: tool.affiliateUrl || getAffiliateLink(tool.slug) || "",
+}));
 
 export function getAllTools(): Tool[] {
   return tools;
