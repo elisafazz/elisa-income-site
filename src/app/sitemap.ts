@@ -1,8 +1,6 @@
 import type { MetadataRoute } from "next";
 import {
   getAllTools,
-  getAllComparePairs,
-  getAllBestForParams,
 } from "@/lib/tools";
 import { getAllPosts, getAllProducts } from "@/lib/content";
 
@@ -10,8 +8,6 @@ const BASE_URL = "https://aitoolbreakdown.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const tools = getAllTools();
-  const comparePairs = getAllComparePairs();
-  const bestForParams = getAllBestForParams();
   const posts = getAllPosts();
   const products = getAllProducts();
 
@@ -33,20 +29,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const comparePages: MetadataRoute.Sitemap = comparePairs.map((pair) => ({
-    url: `${BASE_URL}/compare/${pair}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
-
-  const bestForPages: MetadataRoute.Sitemap = bestForParams.map((param) => ({
-    url: `${BASE_URL}/best/${param}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
-
   const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: new Date(post.date),
@@ -61,5 +43,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...toolPages, ...blogPages, ...productPages, ...comparePages, ...bestForPages];
+  return [...staticPages, ...toolPages, ...blogPages, ...productPages];
 }

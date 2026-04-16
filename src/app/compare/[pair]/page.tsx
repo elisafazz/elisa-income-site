@@ -48,6 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${a.name} vs ${b.name} - Side-by-Side Comparison`,
     description: `${a.name} vs ${b.name}: full comparison of features, pricing, pros, cons, and which to pick for your use case.`,
+    robots: { index: false, follow: false },
     openGraph: {
       title: `${a.name} vs ${b.name}`,
       description: `Detailed comparison: ${a.name} vs ${b.name}`,

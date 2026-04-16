@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Best ${categoryLabel} Tools for ${roleLabel}s`,
     description: `The ${result.tools.length} best ${categoryLabel} tools for ${roleLabel}s in 2026. Ranked by features, pricing, and real-world fit.`,
+    robots: { index: false, follow: false },
     openGraph: {
       title: `Best ${categoryLabel} Tools for ${roleLabel}s`,
       description: `Ranked list of ${categoryLabel} tools built for ${roleLabel}s - with pricing, pros, cons, and affiliate links.`,
